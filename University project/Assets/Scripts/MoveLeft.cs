@@ -17,10 +17,22 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    private void FixedUpdate()
+    {
         transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
         if (transform.position.x <= end)
         {
-            transform.position = new Vector2(start, transform.position.y);
+            if (gameObject.tag == "platform")
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.position = new Vector2(start, transform.position.y);
+            }
         }
     }
 

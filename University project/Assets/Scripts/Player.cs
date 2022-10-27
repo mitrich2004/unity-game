@@ -5,27 +5,39 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
-    bool isJumping;
+
+    public LayerMask platformsAndGroundLayerMask;
+    private bool jumpKeyWasPressed;
+    private BoxCollider2D boxCollider2d;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        isJumping = false;
+        boxCollider2d = transform.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("space") && !isJumping)
+        if (Input.GetKeyDown("space"))
         {
-            rb.velocity = new Vector3(0, 20, 0);
-            isJumping = true;
+            jumpKeyWasPressed = true;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void FixedUpdate()
     {
-        isJumping = false;
+        if (IsGrounded() && jumpKeyWasPressed)
+        {
+            rb.velocity = new Vector3(0, 20, 0);
+            jumpKeyWasPressed = false;
+        }
     }
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
+        return raycastHit2d.collider != null;
+    }
+
 }
