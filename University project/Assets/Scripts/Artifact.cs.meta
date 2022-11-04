@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 51082ba2cf3c12e438e810f01c50a752
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hexagon: {fileID: -2135585597343286014, guid: 88d58106f138b5b4092a15175fa6d91e, type: 3}
+  - flower: {fileID: 21300000, guid: 471cf5ee4cc54a941bd2d320747b7258, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

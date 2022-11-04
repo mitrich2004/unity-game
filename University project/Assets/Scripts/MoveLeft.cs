@@ -25,7 +25,7 @@ public class MoveLeft : MonoBehaviour
         transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
         if (transform.position.x <= end)
         {
-            if (gameObject.tag == "platform")
+            if (gameObject.tag == "platform" || gameObject.tag == "artifact")
             {
                 Destroy(gameObject);
             }
