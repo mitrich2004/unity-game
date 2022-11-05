@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //player object features
     Rigidbody2D rb;
-
     public LayerMask platformsAndGroundLayerMask;
-    private bool jumpKeyWasPressed;
     private BoxCollider2D boxCollider2d;
+
+    //space key flag
+    private bool jumpKeyWasPressed;
 
     // Start is called before the first frame update
     void Start()
     {
+        //intializing the features
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
     }
@@ -22,7 +25,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            jumpKeyWasPressed = true;
+            jumpKeyWasPressed = true; //the space key has been pressed
         }
     }
 
@@ -30,14 +33,16 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded() && jumpKeyWasPressed)
         {
-            rb.velocity = new Vector3(0, 20, 0);
-            jumpKeyWasPressed = false;
+            rb.velocity = new Vector3(0, 20, 0); //make the player jump
+            jumpKeyWasPressed = false;  //disable the multijuming
         }
     }
+
     private bool IsGrounded()
     {
+        //check if player touches the ground or a platform
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
-        return raycastHit2d.collider != null;
+        return raycastHit2d.collider != null; 
     }
 
 }

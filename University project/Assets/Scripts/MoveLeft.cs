@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
+    //important parameters
     public float speed;
     public float start;
     public float end;
@@ -22,18 +23,18 @@ public class MoveLeft : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
+        transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y); //moving the object
         if (transform.position.x <= end)
         {
-            if (gameObject.tag == "platform" || gameObject.tag == "artifact")
+            if (gameObject.tag == "platform" || gameObject.tag == "artifact" || gameObject.tag == "obstacle")
             {
-                Destroy(gameObject);
+                Destroy(gameObject); //destroying the object, once it's out of the view
             }
             else
             {
-                transform.position = new Vector2(start, transform.position.y);
+                transform.position = new Vector2(start, transform.position.y); //repositioning the object back to the start
             }
         }
     }
-
 }
+

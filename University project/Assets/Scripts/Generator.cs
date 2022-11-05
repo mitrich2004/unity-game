@@ -4,174 +4,141 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+    //time fields
     float maxTime;
     float timer;
 
+    //all objects
     public GameObject lowPlatform; 
     public GameObject twoPlatforms;
     public GameObject threePlatforms;
     public GameObject smallObstacle;
     public GameObject flyingObstacle;
     public GameObject longObstacle;
-    public GameObject groundObstacle;
+    public GameObject highObstacle;
     public GameObject artifact;
 
+    //randomizers
     int chooseObject;
-    int choosePosition;
+    int chooseArtifactGenerationCase;
+
+    //platforms X coordinates
+    const float firstPlatformX = 12f;
+    const float secondPlatformX = 17.2f;
+    const float thirdPlatformX = 22.5f;
+
+    //platforms Y coordiantes
+    const float underLowPlatformY = -2f;
+    const float onLowPlatformY = 0.4f;
+    const float onHighPlatformY = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxTime = 2.2f;
+        maxTime = 2.2f; //setting generations interval
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        timer += Time.deltaTime; //couning time
         if (timer > maxTime)
         {
-            Generate();
-            timer = 0;
+            Generate(); //generating an object
+            timer = 0; //reseting the timer
         }
         
     }
 
     void Generate()
     {
-         chooseObject = Random.Range(0,8);
-          if (chooseObject == 0) {
-              GameObject newArtifact = Instantiate(artifact);
-              choosePosition = Random.Range(0, 3);
-              if (choosePosition == 0)
-              {
-              newArtifact.transform.position = new Vector2(12.7f, 0.4f);
-              }
-              else if(choosePosition == 1)
-              {
-              GameObject newArtifact2 = Instantiate(artifact);
-              newArtifact.transform.position = new Vector2(12.7f, 0.4f);
-          }
+        chooseObject = Random.Range(0,8); //choose a random object to generate
 
-              GameObject newObject = Instantiate(lowPlatform);
-          }
-
-
-
-           if (chooseObject == 1) {
-               GameObject newArtifact = Instantiate(artifact);
-               choosePosition = Random.Range(0, 5);
-               if (choosePosition == 0)
-               {
-                   newArtifact.transform.position = new Vector2(12.7f, 0.4f);
-               }
-               else if(choosePosition == 1)
-               {
-                   newArtifact.transform.position = new Vector2(17.9f, 2.9f);
-               }
-               else if(choosePosition == 2)
-               {
-               GameObject newArtifact2 = Instantiate(artifact);
-               newArtifact.transform.position = new Vector2(12.7f, 0.4f);
-               }
-               else if(choosePosition == 3)
-               {
-               GameObject newArtifact2 = Instantiate(artifact);
-               newArtifact.transform.position = new Vector2(12.7f, 0.4f);
-               newArtifact2.transform.position = new Vector2(17.9f, 2.9f);
-               }
-               else if(choosePosition == 4)
-               {
-               GameObject newArtifact2 = Instantiate(artifact);
-               newArtifact.transform.position = new Vector2(17.9f, 2.9f);
-               }
-               GameObject newObject = Instantiate(twoPlatforms); 
-           }
-
-
-
-        if (chooseObject == 2){
-            GameObject newObject = Instantiate(threePlatforms);
-        GameObject newArtifact = Instantiate(artifact);
-        choosePosition = Random.Range(0, 12);
-        if (choosePosition == 0)
-        {
-            newArtifact.transform.position = new Vector2(12.7f, 0.4f);  //over 1
+        if (chooseObject == 0) {
+            GameObject newPlatform = Instantiate(lowPlatform); //generate a low platform
+            chooseArtifactGenerationCase = Random.Range(0, 2); //choose a random artifact generation case
+            switch (chooseArtifactGenerationCase)
+            {
+                case 0: GenerateArtifact(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
+                case 1: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+            }
         }
-        else if (choosePosition == 1)
+        else if (chooseObject == 1) 
         {
-            newArtifact.transform.position = new Vector2(17.9f, 2.9f);  //over 2
+            GameObject newPlatform = Instantiate(twoPlatforms); //generate two platforms
+            chooseArtifactGenerationCase = Random.Range(0, 5); //choose a random artifact generation case
+            switch (chooseArtifactGenerationCase)
+            {
+                case 0: GenerateArtifact(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
+                case 1: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+                case 2: GenerateArtifact(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
+                case 3: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
+                case 4: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
+            }
         }
-        else if (choosePosition == 2)
+        else if (chooseObject == 2)
         {
-          
-            newArtifact.transform.position = new Vector2(23.2f, 0.4f);  //over 3
+            GameObject newPlatform = Instantiate(threePlatforms); //generate two platforms
+            chooseArtifactGenerationCase = Random.Range(0, 12); //choose a random artifact generation case
+            switch (chooseArtifactGenerationCase)
+            {
+                case 0: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+                case 1: GenerateArtifact(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
+                case 2: GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //one artifact on 3d platform
+                case 3: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
+                case 4: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
+                case 5: GenerateArtifact(firstPlatformX, onLowPlatformY);
+                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts on 1st & 3d platforms
+                case 6: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts under 1st & 3d platforms
+                case 7: GenerateArtifact(firstPlatformX, onLowPlatformY);
+                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts on 1st platform & under 3d platform
+                case 8: GenerateArtifact(firstPlatformX, underLowPlatformY);
+                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts under 1st platform & on 3d platform
+                case 9: GenerateArtifact(secondPlatformX, onHighPlatformY);
+                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts on 2nd platform & on 3d platform
+                case 10: GenerateArtifact(secondPlatformX, onHighPlatformY);
+                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts on 2nd platform & under 3d platform
+                case 11: GenerateArtifact(firstPlatformX, onLowPlatformY);
+                    GenerateArtifact(secondPlatformX, onHighPlatformY);
+                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //three artifacts on 1st, 2nd & 3d platforms
+            }
         }
-        else if (choosePosition == 3)
-        {
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact.transform.position = new Vector2(12.7f, 0.4f);  //over 1
-            newArtifact2.transform.position = new Vector2(17.9f, 2.9f);  //over 2
-        }
-        else if (choosePosition == 4)
-        {
-            GameObject newArtifact2 = Instantiate(artifact);  
-            newArtifact.transform.position = new Vector2(17.9f, 2.9f);  //over 2
-        }
-        else if(choosePosition == 5)
-        {
-            newArtifact.transform.position = new Vector2(12.7f, 0.4f); //over 1
-            GameObject newArtifact2 = Instantiate(artifact); 
-            newArtifact2.transform.position = new Vector2(23.2f, 0.4f);  //over 3
-        }
-        else if(choosePosition == 6)
-        {
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(23.2f, -2); // under 3
-        }
-        else if (choosePosition == 7)
-        {
-            newArtifact.transform.position = new Vector2(12.7f, 0.4f); //over 1
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(23.2f, -2f);  //under 3
-        }
-        else if (choosePosition == 8)
-        {
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(23.2f, 0.4f); //over 3
-        }
-        else if (choosePosition == 9)
-        {
-            newArtifact.transform.position = new Vector2(17.9f, 2.9f);  //over 2
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(23.2f, 0.4f);  //over 3
-        }
-        else if (choosePosition == 10)
-        {
-            newArtifact.transform.position = new Vector2(17.9f, 2.9f);  //over 2
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(23.2f, -2f);  //under 3
-        }
-        else if (choosePosition == 11)
-        {
-            newArtifact.transform.position = new Vector2(12.7f, 0.4f);  //over 1
-            GameObject newArtifact2 = Instantiate(artifact);
-            newArtifact2.transform.position = new Vector2(17.9f, 2.9f);  //over 2
-            GameObject newArtifact3 = Instantiate(artifact);
-            newArtifact3.transform.position = new Vector2(23.2f, 0.4f);  //over 3
-
+        
+        if (chooseObject == 3) 
+        { 
+            GameObject newObstacle = Instantiate(smallObstacle); //generate small obstacle
         }
 
+        if (chooseObject == 4) 
+        {
+            GameObject newObstacle = Instantiate(flyingObstacle); //generate flying obstacle
+        }
 
+        if (chooseObject == 5)
+        { 
+            GameObject newObstacle = Instantiate(longObstacle); //generate long obstacle
+        }
 
-              }
-             if (chooseObject == 3) { GameObject newObject = Instantiate(smallObstacle); }
-             if (chooseObject == 4) { GameObject newObject = Instantiate(flyingObstacle); }
-             if (chooseObject == 5) { GameObject newObject = Instantiate(longObstacle);}
-             if (chooseObject == 6) { GameObject newObject = Instantiate(groundObstacle);}
-             if (chooseObject == 7) { GameObject newArtifact = Instantiate(artifact); }
+        if (chooseObject == 6) 
+        { 
+            GameObject newObstacle = Instantiate(highObstacle); //generate high obstacle
+        }
 
+        if (chooseObject == 7) 
+        { 
+            GameObject newArtifact = Instantiate(artifact); //generate artifact
+        }
+    }
 
-
+    void GenerateArtifact(float x, float y)
+    {
+        GameObject newArtifact = Instantiate(artifact); //create artifact
+        newArtifact.gameObject.transform.position = new Vector2(x, y); //set artifact's position
     }
 }
+
