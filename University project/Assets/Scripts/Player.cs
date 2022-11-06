@@ -13,12 +13,15 @@ public class Player : MonoBehaviour
     //space key flag
     private bool jumpKeyWasPressed;
 
+    private Health health;
+
     // Start is called before the first frame update
     void Start()
     {
         //intializing the features
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
+        health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -45,5 +48,28 @@ public class Player : MonoBehaviour
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
         return raycastHit2d.collider != null; 
     }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("obstacle"))
+        {
+            for(int i=0; i<health.hearts.Length; i++)
+            {
+                if (health.isLife[i] == true)
+                {
+                    health.isLife[i] = false;
+                    Destroy(health.hearts[i]);
+                    if (i == 2)
+                    {
+                        SceneManager.LoadScene("Main");
+
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
 
 }
