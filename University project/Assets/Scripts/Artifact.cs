@@ -1,53 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Artifact : MonoBehaviour
-{
-    //all arificat sprites
-    public Sprite flower;
-    public Sprite spider;
-    public Sprite hat;
-    public Sprite scorpio;
-    public Sprite potion;
-    public Sprite dagger;
-    public Sprite wand;
-    public Sprite rubin;
-    
+{   
     //artifact sprite randomizer
     int chooseArtifact;
     
-    //invenotry reference
+    //other classes references
     private Inventory inventory;
-
-    //saving the artifact sprite here
-    private Sprite artifactSprite;
+    private Order order;
 
     // Start is called before the first frame update
     void Start()
     {
+        //intializing references
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        order = GameObject.FindGameObjectWithTag("Player").GetComponent<Order>();
+
         chooseArtifact = Random.Range(0, 8); //choosing a random sprite
+        SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //sets the sprite for the artifact
         switch (chooseArtifact)
         {
-            case 0: gameObject.GetComponent<SpriteRenderer>().sprite = flower; artifactSprite = flower; break; 
-            case 1: gameObject.GetComponent<SpriteRenderer>().sprite = spider; artifactSprite = spider; break;
-            case 2: gameObject.GetComponent<SpriteRenderer>().sprite = hat; artifactSprite = hat; break;
-            case 3: gameObject.GetComponent<SpriteRenderer>().sprite = scorpio; artifactSprite = scorpio; break; 
-            case 4: gameObject.GetComponent<SpriteRenderer>().sprite = potion; artifactSprite = potion; break; 
-            case 5: gameObject.GetComponent<SpriteRenderer>().sprite = dagger; artifactSprite = dagger; break; 
-            case 6: gameObject.GetComponent<SpriteRenderer>().sprite = wand; artifactSprite = wand; break; 
-            case 7: gameObject.GetComponent<SpriteRenderer>().sprite = rubin; artifactSprite = rubin; break; 
+            case 0: artifactSpriteRenderer.sprite = order.flower; break; 
+            case 1: artifactSpriteRenderer.sprite = order.spider; break;
+            case 2: artifactSpriteRenderer.sprite = order.hat; break;
+            case 3: artifactSpriteRenderer.sprite = order.scorpio; break; 
+            case 4: artifactSpriteRenderer.sprite = order.potion; break; 
+            case 5: artifactSpriteRenderer.sprite = order.dagger; break; 
+            case 6: artifactSpriteRenderer.sprite = order.wand; break; 
+            case 7: artifactSpriteRenderer.sprite = order.rubin; break; 
         }
-
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //calles every time something touches the artifact
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -56,12 +48,71 @@ public class Artifact : MonoBehaviour
             {
                 if (inventory.isFull[i] == false)
                 {
-                    inventory.isFull[i] = true;
-                    inventory.slots[i].GetComponent<Image>().sprite = artifactSprite;
+                    collectArtifact(i);
                     break;
                 }
             }
+
+            for (int i = 0; i < order.orderedArtifacts.Length; i++)
+            {
+                if (order.isCollected[i] == false)
+                {
+                    Sprite orderedArtifactSprite = order.orderedArtifacts[i].GetComponent<Image>().sprite;
+                    SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                    if (orderedArtifactSprite.name == artifactSpriteRenderer.sprite.name)
+                    {
+                        fillTheOrder(i);
+                        break;
+                    }
+                }          
+            }
+
             Destroy(gameObject); //destroying the artifact when player touches it
+        }
+    }
+
+    //player tries to pick up an artifact
+    void collectArtifact(int slotIndex)
+    {
+        inventory.isFull[slotIndex] = true;
+        inventory.slots[slotIndex].GetComponent<Image>().sprite = 
+            gameObject.GetComponent<SpriteRenderer>().sprite;
+        bool allFull = true;
+
+        for (int i = 0; i < inventory.isFull.Length; i++)
+        {
+            if (inventory.isFull[i] == false)
+            {
+                allFull = false;
+            }
+        }
+
+        if (allFull)
+        {
+            SceneManager.LoadScene("Main");
+            Debug.Log("DEFEAT!!!");
+        }
+    }
+
+    //player picked up an artifact which was ordered
+    void fillTheOrder(int artifactIndex)
+    {
+        order.isCollected[artifactIndex] = true;
+        order.orderedArtifacts[artifactIndex].GetComponent<Image>().color = new Color(255, 255, 255, 0.2f);
+        bool allCollected = true;
+
+        for (int j = 0; j < order.isCollected.Length; j++)
+        {
+            if (order.isCollected[j] == false)
+            {
+                allCollected = false;
+            }
+        }
+
+        if (allCollected)
+        {
+            SceneManager.LoadScene("Main");
+            Debug.Log("VICTORY!!!");
         }
     }
 }

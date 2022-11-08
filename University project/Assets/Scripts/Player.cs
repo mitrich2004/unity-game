@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
@@ -13,7 +14,11 @@ public class Player : MonoBehaviour
     //space key flag
     private bool jumpKeyWasPressed;
 
+    //references to other classes
     private Health health;
+
+    //sprites
+    public Sprite empty;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Called every fixed amount of time
     private void FixedUpdate()
     {
         if (IsGrounded() && jumpKeyWasPressed)
@@ -42,14 +48,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Checks if player touches the ground or a platform
     private bool IsGrounded()
     {
-        //check if player touches the ground or a platform
-        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center,
+            boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
         return raycastHit2d.collider != null; 
     }
 
-
+    //Called every time a player touches something
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("obstacle"))
@@ -58,18 +65,24 @@ public class Player : MonoBehaviour
             {
                 if (health.isLife[i] == true)
                 {
-                    health.isLife[i] = false;
-                    Destroy(health.hearts[i]);
-                    if (i == 2)
-                    {
-                        SceneManager.LoadScene("Main");
-
-                    }
+                    decreaseLives(i);
                     break;
                 }
             }
         }
     }
 
+    //Deducts one life from a player
+    void decreaseLives(int heartIndex)
+    {
+        health.isLife[heartIndex] = false; //sets the heart existence to false
+        Image heartImage = health.hearts[heartIndex].GetComponent<Image>();
+        heartImage.sprite = empty; //makes the heart image on the screen trasparent
 
+        if (heartIndex == 2)
+        {
+            SceneManager.LoadScene("Main"); //restarts the game
+            Debug.Log("DEFEAT!!!");
+        }
+    }
 }

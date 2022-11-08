@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start: 12
-  end: -12
+  end: -11
 --- !u!61 &5870579212369801840
 BoxCollider2D:
   m_ObjectHideFlags: 0

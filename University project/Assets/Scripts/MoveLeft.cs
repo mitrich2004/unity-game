@@ -12,7 +12,7 @@ public class MoveLeft : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 10f; //setting the speed
+        speed = 12f; //setting the speed
     }
 
     // Update is called once per frame

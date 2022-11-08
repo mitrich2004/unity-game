@@ -99,9 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82beb3c776dbb134daf9c98892901c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
   start: 12
-  end: -12
+  end: -11
 --- !u!61 &2954929621191665524
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,11 +139,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51082ba2cf3c12e438e810f01c50a752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flower: {fileID: 21300000, guid: 471cf5ee4cc54a941bd2d320747b7258, type: 3}
-  spider: {fileID: 21300000, guid: fda0f75d36e0cd34eab10fe75e06357c, type: 3}
-  hat: {fileID: 21300000, guid: 32ea567cf3cf1464dad9a23934a0ba8d, type: 3}
-  scorpio: {fileID: 21300000, guid: 508fcc352d008e9428b5dae415fb13eb, type: 3}
-  potion: {fileID: 21300000, guid: 032635535f2edfd468258422099c7f9c, type: 3}
-  dagger: {fileID: 21300000, guid: 5e406aec3ee841645bf159384ea9d878, type: 3}
-  wand: {fileID: 21300000, guid: 2fcbe0a7b695e0e40af1abc7fd8b3b14, type: 3}
-  rubin: {fileID: 21300000, guid: 1f446400da3ae3c4486e85b155af1913, type: 3}

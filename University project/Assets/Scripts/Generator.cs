@@ -50,9 +50,10 @@ public class Generator : MonoBehaviour
         
     }
 
+    //generates a game object
     void Generate()
     {
-        chooseObject = Random.Range(0,12); //choose a random object to generate
+        chooseObject = Random.Range(0,10); //choose a random object to generate
 
         if (chooseObject == 0) {
             GameObject newPlatform = Instantiate(lowPlatform); //generate a low platform
@@ -109,32 +110,33 @@ public class Generator : MonoBehaviour
             }
         }
         
-        if (chooseObject == 3 || chooseObject == 4) 
+        if (chooseObject == 3) 
         { 
             GameObject newObstacle = Instantiate(smallObstacle); //generate small obstacle
         }
 
-        if (chooseObject == 5 || chooseObject == 6) 
+        if (chooseObject == 4) 
         {
             GameObject newObstacle = Instantiate(flyingObstacle); //generate flying obstacle
         }
 
-        if (chooseObject == 7 || chooseObject == 8)
+        if (chooseObject == 5 || chooseObject == 6)
         { 
             GameObject newObstacle = Instantiate(longObstacle); //generate long obstacle
         }
 
-        if (chooseObject == 9 || chooseObject == 10) 
+        if (chooseObject == 7 || chooseObject == 8) 
         { 
             GameObject newObstacle = Instantiate(highObstacle); //generate high obstacle
         }
 
-        if (chooseObject == 11) 
+        if (chooseObject == 9) 
         { 
             GameObject newArtifact = Instantiate(artifact); //generate artifact
         }
     }
 
+    //generates an artifact
     void GenerateArtifact(float x, float y)
     {
         GameObject newArtifact = Instantiate(artifact); //create artifact
