@@ -26,7 +26,7 @@ public class MoveLeft : MonoBehaviour
         transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y); //moving the object
         if (transform.position.x <= end)
         {
-            if (gameObject.tag == "platform" || gameObject.tag == "artifact" || gameObject.tag == "obstacle")
+            if (gameObject.tag == "platform" || gameObject.tag == "artifact" || gameObject.tag == "obstacle" || gameObject.tag == "powerUp")
             {
                 Destroy(gameObject); //destroying the object, once it's out of the view
             }
