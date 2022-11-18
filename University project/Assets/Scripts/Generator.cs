@@ -17,6 +17,7 @@ public class Generator : MonoBehaviour
     public GameObject longObstacle;
     public GameObject highObstacle;
     public GameObject artifact;
+    public GameObject powerUp;
 
     //randomizers
     int chooseObject;
@@ -53,15 +54,15 @@ public class Generator : MonoBehaviour
     //generates a game object
     void Generate()
     {
-        chooseObject = Random.Range(0,10); //choose a random object to generate
+        chooseObject = Random.Range(0,9); //choose a random object to generate
 
         if (chooseObject == 0) {
             GameObject newPlatform = Instantiate(lowPlatform); //generate a low platform
             chooseArtifactGenerationCase = Random.Range(0, 2); //choose a random artifact generation case
             switch (chooseArtifactGenerationCase)
             {
-                case 0: GenerateArtifact(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
-                case 1: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+                case 0: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
+                case 1: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
             }
         }
         else if (chooseObject == 1) 
@@ -70,13 +71,13 @@ public class Generator : MonoBehaviour
             chooseArtifactGenerationCase = Random.Range(0, 5); //choose a random artifact generation case
             switch (chooseArtifactGenerationCase)
             {
-                case 0: GenerateArtifact(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
-                case 1: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
-                case 2: GenerateArtifact(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
-                case 3: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
-                case 4: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
+                case 0: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY); break; //one artifact under 1st platform
+                case 1: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+                case 2: GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
+                case 3: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
+                case 4: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
             }
         }
         else if (chooseObject == 2)
@@ -85,28 +86,28 @@ public class Generator : MonoBehaviour
             chooseArtifactGenerationCase = Random.Range(0, 12); //choose a random artifact generation case
             switch (chooseArtifactGenerationCase)
             {
-                case 0: GenerateArtifact(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
-                case 1: GenerateArtifact(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
-                case 2: GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //one artifact on 3d platform
-                case 3: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
-                case 4: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
-                case 5: GenerateArtifact(firstPlatformX, onLowPlatformY);
-                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts on 1st & 3d platforms
-                case 6: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts under 1st & 3d platforms
-                case 7: GenerateArtifact(firstPlatformX, onLowPlatformY);
-                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts on 1st platform & under 3d platform
-                case 8: GenerateArtifact(firstPlatformX, underLowPlatformY);
-                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts under 1st platform & on 3d platform
-                case 9: GenerateArtifact(secondPlatformX, onHighPlatformY);
-                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //two artifacts on 2nd platform & on 3d platform
-                case 10: GenerateArtifact(secondPlatformX, onHighPlatformY);
-                    GenerateArtifact(thirdPlatformX, underLowPlatformY); break; //two artifacts on 2nd platform & under 3d platform
-                case 11: GenerateArtifact(firstPlatformX, onLowPlatformY);
-                    GenerateArtifact(secondPlatformX, onHighPlatformY);
-                    GenerateArtifact(thirdPlatformX, onLowPlatformY); break; //three artifacts on 1st, 2nd & 3d platforms
+                case 0: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY); break; //one artifact on 1st platform
+                case 1: GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //one artifact on 2nd platform
+                case 2: GenerateArtifactOrPowerUp(thirdPlatformX, onLowPlatformY); break; //one artifact on 3d platform
+                case 3: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //two artifacts on 1st & 2nd platforms
+                case 4: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY); break; //two artifacts under 1st platform & on 2nd platform
+                case 5: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, onLowPlatformY); break; //two artifacts on 1st & 3d platforms
+                case 6: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, underLowPlatformY); break; //two artifacts under 1st & 3d platforms
+                case 7: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, underLowPlatformY); break; //two artifacts on 1st platform & under 3d platform
+                case 8: GenerateArtifactOrPowerUp(firstPlatformX, underLowPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, onLowPlatformY); break; //two artifacts under 1st platform & on 3d platform
+                case 9: GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, onLowPlatformY); break; //two artifacts on 2nd platform & on 3d platform
+                case 10: GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, underLowPlatformY); break; //two artifacts on 2nd platform & under 3d platform
+                case 11: GenerateArtifactOrPowerUp(firstPlatformX, onLowPlatformY);
+                    GenerateArtifactOrPowerUp(secondPlatformX, onHighPlatformY);
+                    GenerateArtifactOrPowerUp(thirdPlatformX, onLowPlatformY); break; //three artifacts on 1st, 2nd & 3d platforms
             }
         }
         
@@ -120,27 +121,41 @@ public class Generator : MonoBehaviour
             GameObject newObstacle = Instantiate(flyingObstacle); //generate flying obstacle
         }
 
-        if (chooseObject == 5 || chooseObject == 6)
+        if (chooseObject == 5)
         { 
             GameObject newObstacle = Instantiate(longObstacle); //generate long obstacle
         }
 
-        if (chooseObject == 7 || chooseObject == 8) 
+        if (chooseObject == 6) 
         { 
             GameObject newObstacle = Instantiate(highObstacle); //generate high obstacle
         }
 
-        if (chooseObject == 9) 
+        if (chooseObject == 7) 
         { 
             GameObject newArtifact = Instantiate(artifact); //generate artifact
+        }
+
+        if (chooseObject == 8)
+        {
+            GameObject newPowerUp = Instantiate(powerUp); //generate powerUp
         }
     }
 
     //generates an artifact
-    void GenerateArtifact(float x, float y)
+    void GenerateArtifactOrPowerUp(float x, float y)
     {
-        GameObject newArtifact = Instantiate(artifact); //create artifact
-        newArtifact.gameObject.transform.position = new Vector2(x, y); //set artifact's position
+        int artifactOrPowerUp = Random.Range(0, 10);
+        if (artifactOrPowerUp == 0)
+        {
+            GameObject newPowerUp = Instantiate(powerUp); //generate powerUp
+            newPowerUp.gameObject.transform.position = new Vector2(x, y); //set artifact's position
+        }
+        else
+        {
+            GameObject newArtifact = Instantiate(artifact); //create artifact
+            newArtifact.gameObject.transform.position = new Vector2(x, y); //set artifact's position
+        }
     }
 }
 
