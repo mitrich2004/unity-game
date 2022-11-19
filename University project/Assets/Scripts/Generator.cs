@@ -29,9 +29,9 @@ public class Generator : MonoBehaviour
     const float thirdPlatformX = 22.5f;
 
     //platforms Y coordiantes
-    const float underLowPlatformY = -2f;
-    const float onLowPlatformY = 0.4f;
-    const float onHighPlatformY = 3f;
+    const float underLowPlatformY = -2.5f;
+    const float onLowPlatformY = -0.2f;
+    const float onHighPlatformY = 2.4f;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +54,7 @@ public class Generator : MonoBehaviour
     //generates a game object
     void Generate()
     {
-        chooseObject = Random.Range(0,9); //choose a random object to generate
+        chooseObject = Random.Range(0, 8); //choose a random object to generate
 
         if (chooseObject == 0) {
             GameObject newPlatform = Instantiate(lowPlatform); //generate a low platform
@@ -135,11 +135,6 @@ public class Generator : MonoBehaviour
         { 
             GameObject newArtifact = Instantiate(artifact); //generate artifact
         }
-
-        if (chooseObject == 8)
-        {
-            GameObject newPowerUp = Instantiate(powerUp); //generate powerUp
-        }
     }
 
     //generates an artifact
@@ -154,7 +149,7 @@ public class Generator : MonoBehaviour
         else
         {
             GameObject newArtifact = Instantiate(artifact); //create artifact
-            newArtifact.gameObject.transform.position = new Vector2(x, y); //set artifact's position
+            newArtifact.gameObject.transform.position = new Vector2(x, y); //set powerUp's position
         }
     }
 }

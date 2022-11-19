@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7053411341969915257}
   - component: {fileID: 6882483226261093978}
   - component: {fileID: 8854303433925207893}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: HighPlatform
   m_TagString: platform
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4723650878863337696}
   - component: {fileID: 7235761509314878614}
   - component: {fileID: 9037885629306660262}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: LowPlatform
   m_TagString: platform
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 8729590021743027630}
   - component: {fileID: -6680290052615795816}
   - component: {fileID: -9216526016581122727}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: ThreePlatforms
   m_TagString: platform
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5349730888880702681}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: -0.8, z: 0}
+  m_LocalPosition: {x: 12, y: -1.3, z: 0}
   m_LocalScale: {x: 3.5, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -322,7 +322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82beb3c776dbb134daf9c98892901c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
   start: 12
   end: -21
 --- !u!61 &-9216526016581122727

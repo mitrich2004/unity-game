@@ -19,10 +19,10 @@ public class Order : MonoBehaviour
     public Sprite flower;
     public Sprite spider;
     public Sprite hat;
-    public Sprite scorpio;
+    public Sprite candle;
     public Sprite potion;
     public Sprite dagger;
-    public Sprite wand;
+    public Sprite crystalBall;
     public Sprite rubin;
 
     // Start is called before the first frame update
@@ -40,10 +40,10 @@ public class Order : MonoBehaviour
                 case 0: orderedArtifactImage.sprite = flower; break;
                 case 1: orderedArtifactImage.sprite = spider; break;
                 case 2: orderedArtifactImage.sprite = hat; break;
-                case 3: orderedArtifactImage.sprite = scorpio; break;
+                case 3: orderedArtifactImage.sprite = candle; break;
                 case 4: orderedArtifactImage.sprite = potion; break;
                 case 5: orderedArtifactImage.sprite = dagger; break;
-                case 6: orderedArtifactImage.sprite = wand; break;
+                case 6: orderedArtifactImage.sprite = crystalBall; break;
                 case 7: orderedArtifactImage.sprite = rubin; break;
             }
         }

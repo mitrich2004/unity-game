@@ -7,14 +7,18 @@ using UnityEngine.UI;
 public class PowerUp : MonoBehaviour
 {
 
+    //references to other classes
     private Health health;
 
+    //game object elements
     public Sprite heart;
+    private SpriteRenderer powerUpSpriteRender;
 
     // Start is called before the first frame update
     void Start()
     {
-        SpriteRenderer powerUpSpriteRender = gameObject.GetComponent<SpriteRenderer>();
+        //initializing fields
+        powerUpSpriteRender = gameObject.GetComponent<SpriteRenderer>();
         powerUpSpriteRender.sprite = heart;
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
@@ -29,18 +33,28 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            for (int i = health.hearts.Length - 1; i >= 0; i--)
+            if (powerUpSpriteRender.sprite == heart)
             {
-                if (health.isLife[i] == false)
-                {
-                    health.isLife[i] = true;
-                    Image heartImage = health.hearts[i].GetComponent<Image>();
-                    heartImage.sprite = heart; //makes the heart image on the screen trasparent
-                    break;
-                }
+                applyHeartPowerUp(); //apply the power up
             }
-
             Destroy(gameObject); //destroying the heart when player touches it
         }
     }
+
+    void applyHeartPowerUp()
+    {
+     
+        for (int i = health.hearts.Length - 1; i >= 0; i--)
+        {
+            if (health.isLife[i] == false)
+            {
+                health.isLife[i] = true;
+                Image heartImage = health.hearts[i].GetComponent<Image>();
+                heartImage.sprite = heart; //returns the heart image
+                break;
+            }
+        }
+    }
 }
+
+

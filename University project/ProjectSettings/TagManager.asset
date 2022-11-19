@@ -8,14 +8,16 @@ TagManager:
   - artifact
   - obstacle
   - powerUp
+  - ground
+  - background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PlatformsAndGround
   - Water
   - UI
-  - PlatformsAndGround
+  - 
   - 
   - 
   - 

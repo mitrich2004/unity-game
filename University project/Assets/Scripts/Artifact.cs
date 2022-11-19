@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.U2D;
 using UnityEngine;
@@ -10,10 +11,25 @@ public class Artifact : MonoBehaviour
 {   
     //artifact sprite randomizer
     int chooseArtifact;
-    
+
+    //sprites of artifacts
+    public Sprite shinyFlower;
+    public Sprite shinySpider;
+    public Sprite shinyHat;
+    public Sprite shinyCandle;
+    public Sprite shinyPotion;
+    public Sprite shinyDagger;
+    public Sprite shinyCrystalBall;
+    public Sprite shinyRubin;
+
     //other classes references
     private Inventory inventory;
     private Order order;
+
+    //order complition flag
+    private bool allCollected;
+
+    private Sprite[] artifactsSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -28,15 +44,17 @@ public class Artifact : MonoBehaviour
         //sets the sprite for the artifact
         switch (chooseArtifact)
         {
-            case 0: artifactSpriteRenderer.sprite = order.flower; break; 
-            case 1: artifactSpriteRenderer.sprite = order.spider; break;
-            case 2: artifactSpriteRenderer.sprite = order.hat; break;
-            case 3: artifactSpriteRenderer.sprite = order.scorpio; break; 
-            case 4: artifactSpriteRenderer.sprite = order.potion; break; 
-            case 5: artifactSpriteRenderer.sprite = order.dagger; break; 
-            case 6: artifactSpriteRenderer.sprite = order.wand; break; 
-            case 7: artifactSpriteRenderer.sprite = order.rubin; break; 
+            case 0: artifactSpriteRenderer.sprite = shinyFlower; break; 
+            case 1: artifactSpriteRenderer.sprite = shinySpider; break;
+            case 2: artifactSpriteRenderer.sprite = shinyHat; break;
+            case 3: artifactSpriteRenderer.sprite = shinyCandle; break; 
+            case 4: artifactSpriteRenderer.sprite = shinyPotion; break; 
+            case 5: artifactSpriteRenderer.sprite = shinyDagger; break; 
+            case 6: artifactSpriteRenderer.sprite = shinyCrystalBall; break; 
+            case 7: artifactSpriteRenderer.sprite = shinyRubin; break; 
         }
+
+        artifactsSprites = new Sprite[] { order.flower, order.spider, order.hat, order.candle, order.potion, order.dagger, order.crystalBall, order.rubin};
     }
 
     //calles every time something touches the artifact
@@ -44,6 +62,20 @@ public class Artifact : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            for (int i = 0; i < order.orderedArtifacts.Length; i++)
+            {
+                if (order.isCollected[i] == false)
+                {
+                    Sprite orderedArtifactSprite = order.orderedArtifacts[i].GetComponent<Image>().sprite;
+                    SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                    if (artifactSpriteRenderer.sprite.name.Contains(orderedArtifactSprite.name))
+                    {
+                        fillTheOrder(i);
+                        break;
+                    }
+                }
+            }
+
             for (int i = 0; i < inventory.slots.Length; i++)
             {
                 if (inventory.isFull[i] == false)
@@ -51,20 +83,6 @@ public class Artifact : MonoBehaviour
                     collectArtifact(i);
                     break;
                 }
-            }
-
-            for (int i = 0; i < order.orderedArtifacts.Length; i++)
-            {
-                if (order.isCollected[i] == false)
-                {
-                    Sprite orderedArtifactSprite = order.orderedArtifacts[i].GetComponent<Image>().sprite;
-                    SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                    if (orderedArtifactSprite.name == artifactSpriteRenderer.sprite.name)
-                    {
-                        fillTheOrder(i);
-                        break;
-                    }
-                }          
             }
 
             Destroy(gameObject); //destroying the artifact when player touches it
@@ -75,8 +93,16 @@ public class Artifact : MonoBehaviour
     void collectArtifact(int slotIndex)
     {
         inventory.isFull[slotIndex] = true;
-        inventory.slots[slotIndex].GetComponent<Image>().sprite = 
-            gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        for (int i = 0; i < artifactsSprites.Length; ++i)
+        {
+            if (artifactSpriteRenderer.sprite.name.Contains(artifactsSprites[i].name))
+            {
+                inventory.items[slotIndex].GetComponent<Image>().sprite = artifactsSprites[i];
+            }
+        }
+
         bool allFull = true;
 
         for (int i = 0; i < inventory.isFull.Length; i++)
@@ -87,7 +113,7 @@ public class Artifact : MonoBehaviour
             }
         }
 
-        if (allFull)
+        if (allFull && !allCollected)
         {
             SceneManager.LoadScene("Main");
             Debug.Log("DEFEAT!!!");
@@ -98,8 +124,8 @@ public class Artifact : MonoBehaviour
     void fillTheOrder(int artifactIndex)
     {
         order.isCollected[artifactIndex] = true;
-        order.orderedArtifacts[artifactIndex].GetComponent<Image>().color = new Color(255, 255, 255, 0.2f);
-        bool allCollected = true;
+        order.orderedArtifacts[artifactIndex].GetComponent<Image>().color = new Color(255, 255, 255, 0.4f);
+        allCollected = true;
 
         for (int j = 0; j < order.isCollected.Length; j++)
         {
@@ -115,4 +141,5 @@ public class Artifact : MonoBehaviour
             Debug.Log("VICTORY!!!");
         }
     }
+    
 }

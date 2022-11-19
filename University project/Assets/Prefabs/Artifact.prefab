@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8754912892691822213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: -2, z: 0}
+  m_LocalPosition: {x: 12, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -139,3 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51082ba2cf3c12e438e810f01c50a752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shinyFlower: {fileID: 21300000, guid: aa0b778dee1005c499fba6bbd170aa43, type: 3}
+  shinySpider: {fileID: 21300000, guid: 00f8850e44cc5354ebd2d04e6b489a53, type: 3}
+  shinyHat: {fileID: 21300000, guid: 60af49e9a6e4db14bab7ce6530c4ce11, type: 3}
+  shinyCandle: {fileID: 21300000, guid: c8e3202e59571d54d9dea89a39125d95, type: 3}
+  shinyPotion: {fileID: 21300000, guid: d0d423b9d3afd994b8ff9c4e3ed0aa37, type: 3}
+  shinyDagger: {fileID: 21300000, guid: 209ad862fd0eab248ba9ff95f9e07bc8, type: 3}
+  shinyCrystalBall: {fileID: 21300000, guid: 849291523efb9a046a11ead47fa478bd, type: 3}
+  shinyRubin: {fileID: 21300000, guid: 3dbf307ea403ada49b2fd244a927410b, type: 3}
