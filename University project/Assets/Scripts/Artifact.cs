@@ -25,10 +25,12 @@ public class Artifact : MonoBehaviour
     //other classes references
     private Inventory inventory;
     private Order order;
+    private GameOverScreen gameOverScreen;
 
     //order complition flag
     private bool allCollected;
-
+    
+    //array of artifacts images
     private Sprite[] artifactsSprites;
 
     // Start is called before the first frame update
@@ -37,6 +39,7 @@ public class Artifact : MonoBehaviour
         //intializing references
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
         order = GameObject.FindGameObjectWithTag("Player").GetComponent<Order>();
+        gameOverScreen = GameObject.FindGameObjectWithTag("Player").GetComponent<GameOverScreen>();
 
         chooseArtifact = Random.Range(0, 8); //choosing a random sprite
         SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -54,6 +57,7 @@ public class Artifact : MonoBehaviour
             case 7: artifactSpriteRenderer.sprite = shinyRubin; break; 
         }
 
+        //filing the array of images
         artifactsSprites = new Sprite[] { order.flower, order.spider, order.hat, order.candle, order.potion, order.dagger, order.crystalBall, order.rubin};
     }
 
@@ -62,12 +66,17 @@ public class Artifact : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //checks all ordered artifacts
             for (int i = 0; i < order.orderedArtifacts.Length; i++)
             {
+                //check if this ordered artifacts has been already collected
                 if (order.isCollected[i] == false)
                 {
+                    //getting artifact images
                     Sprite orderedArtifactSprite = order.orderedArtifacts[i].GetComponent<Image>().sprite;
                     SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+                    //checks if player collected the ordered artifact
                     if (artifactSpriteRenderer.sprite.name.Contains(orderedArtifactSprite.name))
                     {
                         fillTheOrder(i);
@@ -76,8 +85,10 @@ public class Artifact : MonoBehaviour
                 }
             }
 
+            //goes through the imvemotry slots
             for (int i = 0; i < inventory.slots.Length; i++)
             {
+                //finds the first free slot
                 if (inventory.isFull[i] == false)
                 {
                     collectArtifact(i);
@@ -89,14 +100,18 @@ public class Artifact : MonoBehaviour
         }
     }
 
-    //player tries to pick up an artifact
+    //player picks up an artifact
     void collectArtifact(int slotIndex)
     {
+        //fill the slot
         inventory.isFull[slotIndex] = true;
 
         SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //goes through all artifacts images
         for (int i = 0; i < artifactsSprites.Length; ++i)
         {
+            //finds the right artifact image
             if (artifactSpriteRenderer.sprite.name.Contains(artifactsSprites[i].name))
             {
                 inventory.items[slotIndex].GetComponent<Image>().sprite = artifactsSprites[i];
@@ -105,6 +120,7 @@ public class Artifact : MonoBehaviour
 
         bool allFull = true;
 
+        //checks if there are free slots left
         for (int i = 0; i < inventory.isFull.Length; i++)
         {
             if (inventory.isFull[i] == false)
@@ -113,32 +129,41 @@ public class Artifact : MonoBehaviour
             }
         }
 
+        //checks if inventory is full and if the order is completed
         if (allFull && !allCollected)
         {
-            SceneManager.LoadScene("Main");
-            Debug.Log("DEFEAT!!!");
+            //game over
+            Time.timeScale = 0; //stops time
+            gameOverScreen.SetUp(order.artifactsCollected); //shows game over screen
         }
     }
 
     //player picked up an artifact which was ordered
     void fillTheOrder(int artifactIndex)
     {
-        order.isCollected[artifactIndex] = true;
-        order.orderedArtifacts[artifactIndex].GetComponent<Image>().color = new Color(255, 255, 255, 0.4f);
-        allCollected = true;
+        order.artifactsCollected += 1; //increase number of ordered arifacts collected
+        order.isCollected[artifactIndex] = true; //sets artifact to collected
+        order.orderedArtifacts[artifactIndex].GetComponent<Image>().color = new Color(255, 255, 255, 0.4f); //makes it image transparent
+        
+        //assumption
+        allCollected = true; 
 
+        //goes through the order list
         for (int j = 0; j < order.isCollected.Length; j++)
         {
+            //checks if there is an artifacts not yet collected
             if (order.isCollected[j] == false)
             {
                 allCollected = false;
             }
         }
 
+        //checks if all ordered artifacts have been collected
         if (allCollected)
         {
-            SceneManager.LoadScene("Main");
-            Debug.Log("VICTORY!!!");
+            //game over
+            Time.timeScale = 0; //stops time
+            gameOverScreen.SetUp(order.artifactsCollected); //shows game over screen
         }
     }
     

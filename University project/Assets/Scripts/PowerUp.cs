@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
-
     //references to other classes
     private Health health;
 
@@ -23,12 +22,6 @@ public class PowerUp : MonoBehaviour
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -41,16 +34,18 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    //player gets a heart powerUp
     void applyHeartPowerUp()
     {
-     
         for (int i = health.hearts.Length - 1; i >= 0; i--)
         {
+            //checks if there is an empty heart
             if (health.isLife[i] == false)
             {
+                //recovers a heart
                 health.isLife[i] = true;
                 Image heartImage = health.hearts[i].GetComponent<Image>();
-                heartImage.sprite = heart; //returns the heart image
+                heartImage.sprite = heart; 
                 break;
             }
         }

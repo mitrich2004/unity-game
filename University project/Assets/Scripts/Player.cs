@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     //references to other classes
     private Health health;
+    private GameOverScreen gameOverScreen;
 
     //sprites
     public Sprite empty;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        gameOverScreen = GameObject.FindGameObjectWithTag("Player").GetComponent<GameOverScreen>();
     }
 
     // Update is called once per frame
@@ -59,13 +61,14 @@ public class Player : MonoBehaviour
     //Called every time a player touches something
     void OnTriggerEnter2D(Collider2D other)
     {
+        //checks if player touched an obstacle
         if (other.CompareTag("obstacle"))
         {
             for(int i=0; i<health.hearts.Length; i++)
             {
                 if (health.isLife[i] == true)
                 {
-                    decreaseLives(i);
+                    decreaseLives(i); //take one heart away
                     break;
                 }
             }
@@ -79,10 +82,12 @@ public class Player : MonoBehaviour
         Image heartImage = health.hearts[heartIndex].GetComponent<Image>();
         heartImage.sprite = empty; //makes the heart image on the screen trasparent
 
+        //checks if player lost the last heart
         if (heartIndex == 2)
         {
-            SceneManager.LoadScene("Main"); //restarts the game
-            Debug.Log("DEFEAT!!!");
+            //game over
+            Time.timeScale = 0; //stops time
+            gameOverScreen.SetUp(-1); //shows game over screen
         }
     }
 }

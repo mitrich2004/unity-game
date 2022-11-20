@@ -25,9 +25,13 @@ public class Order : MonoBehaviour
     public Sprite crystalBall;
     public Sprite rubin;
 
+    //number of ordered artifacts collected
+    public int artifactsCollected;
+
     // Start is called before the first frame update
     private void Start()
     {
+        artifactsCollected = 0; //no artifacts are collected at the start
         sizeOfOrder = 3; //sets the number of artifacts in the order
         for (int i = 0; i < sizeOfOrder; ++i)
         {

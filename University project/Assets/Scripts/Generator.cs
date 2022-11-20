@@ -36,7 +36,7 @@ public class Generator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxTime = 2.2f; //setting generations interval
+        maxTime = 1.5f; //setting generations interval
     }
 
     // Update is called once per frame
@@ -144,12 +144,12 @@ public class Generator : MonoBehaviour
         if (artifactOrPowerUp == 0)
         {
             GameObject newPowerUp = Instantiate(powerUp); //generate powerUp
-            newPowerUp.gameObject.transform.position = new Vector2(x, y); //set artifact's position
+            newPowerUp.gameObject.transform.position = new Vector2(x, y); //set powerUp's position
         }
         else
         {
             GameObject newArtifact = Instantiate(artifact); //create artifact
-            newArtifact.gameObject.transform.position = new Vector2(x, y); //set powerUp's position
+            newArtifact.gameObject.transform.position = new Vector2(x, y); //set artifact's position
         }
     }
 }
