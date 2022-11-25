@@ -15,14 +15,19 @@ public class GameOverScreen: MonoBehaviour
         gameOverScreen.SetActive(true); //showing the game over screen
 
         //checking if player died or filled inventory
-        if (artifactsCollected >= 0)
+        if (artifactsCollected == 3)
         {
-            artifactsText.text = artifactsCollected.ToString() + " ARTIFACTS COLLECTED!";
+            artifactsText.text = artifactsCollected.ToString() + " ARTIFACT(S) COLLECTED!";
         }
-        else
+        else if (artifactsCollected == -1)
         {
             gameOverText.text = "GAME OVER";
             artifactsText.text = "YOU DIED AT WORK!";
+        }
+        else
+        {
+            gameOverText.text = "INVENTORY FULL";
+            artifactsText.text = artifactsCollected.ToString() + " ARTIFACTS COLLECTED!";
         }
     }
 

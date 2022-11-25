@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     //space key flag
     private bool jumpKeyWasPressed;
+    public bool shieldActive;
 
     //references to other classes
     private Health health;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         //intializing the features
+        shieldActive = false;
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
@@ -68,7 +70,10 @@ public class Player : MonoBehaviour
             {
                 if (health.isLife[i] == true)
                 {
-                    decreaseLives(i); //take one heart away
+                    if (!shieldActive)
+                    {
+                        decreaseLives(i); //take one heart away
+                    }         
                     break;
                 }
             }
