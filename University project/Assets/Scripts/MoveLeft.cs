@@ -32,7 +32,8 @@ public class MoveLeft : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject); //destroying the object, once it's out of the view
+                if (gameObject.tag != "collectedShield")
+                    Destroy(gameObject); //destroying the object, once it's out of the view
             }
         }
     }
