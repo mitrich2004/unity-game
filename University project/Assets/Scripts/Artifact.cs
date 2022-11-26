@@ -26,6 +26,7 @@ public class Artifact : MonoBehaviour
     private Inventory inventory;
     private Order order;
     private GameOverScreen gameOverScreen;
+    private Generator generator;
 
     //order complition flag
     private bool allCollected;
@@ -40,6 +41,7 @@ public class Artifact : MonoBehaviour
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
         order = GameObject.FindGameObjectWithTag("Player").GetComponent<Order>();
         gameOverScreen = GameObject.FindGameObjectWithTag("Player").GetComponent<GameOverScreen>();
+        generator = GameObject.FindGameObjectWithTag("generator").GetComponent<Generator>();
 
         chooseArtifact = Random.Range(0, 8); //choosing a random sprite
         SpriteRenderer artifactSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -59,6 +61,16 @@ public class Artifact : MonoBehaviour
 
         //filing the array of images
         artifactsSprites = new Sprite[] { order.flower, order.spider, order.hat, order.candle, order.potion, order.dagger, order.crystalBall, order.rubin};
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //checks if the game is over
+        if (gameOverScreen.gameOver == true)
+        {
+            Destroy(gameObject); //destroys every artifact that's left
+        }
     }
 
     //calles every time something touches the artifact
@@ -133,8 +145,8 @@ public class Artifact : MonoBehaviour
         if (allFull && !allCollected)
         {
             //game over
-            Time.timeScale = 0; //stops time
-            gameOverScreen.SetUp(order.artifactsCollected); //shows game over screen
+            Destroy(generator);
+            gameOverScreen.SetUp(); //shows game over screen
         }
     }
 
@@ -162,9 +174,8 @@ public class Artifact : MonoBehaviour
         if (allCollected)
         {
             //game over
-            Time.timeScale = 0; //stops time
-            gameOverScreen.SetUp(order.artifactsCollected); //shows game over screen
+            Destroy(generator); //destroys the generator
+            gameOverScreen.SetUp(); //shows game over screen
         }
     }
-    
 }

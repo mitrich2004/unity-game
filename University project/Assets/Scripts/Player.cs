@@ -25,10 +25,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //intializing the features
+        //no shield effect at the begining
         shieldActive = false;
+
+        //intializing gameObject's components
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
+
+        //initializing references
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
         gameOverScreen = GameObject.FindGameObjectWithTag("Player").GetComponent<GameOverScreen>();
     }
@@ -90,9 +94,7 @@ public class Player : MonoBehaviour
         //checks if player lost the last heart
         if (heartIndex == 2)
         {
-            //game over
-            Time.timeScale = 0; //stops time
-            gameOverScreen.SetUp(-1); //shows game over screen
+            gameOverScreen.showGameOverScreen(-1); //shows game over screen
         }
     }
 }

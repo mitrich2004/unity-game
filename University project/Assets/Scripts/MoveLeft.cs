@@ -32,7 +32,7 @@ public class MoveLeft : MonoBehaviour
             }
             else
             {
-                if (gameObject.tag != "collectedShield")
+                if (gameObject.tag != "coroutineCaller")
                     Destroy(gameObject); //destroying the object, once it's out of the view
             }
         }
