@@ -13,6 +13,7 @@ public class GameOverScreen: MonoBehaviour
     //other game objects
     public GameObject gameOverScreen;
     public GameObject house;
+    public GameObject audioPlayer;
 
     //game over flag
     public bool gameOver;
@@ -28,6 +29,7 @@ public class GameOverScreen: MonoBehaviour
     //shows final screen
     public void showGameOverScreen(int artifactsCollected)
     {
+        audioPlayer.GetComponent<AudioSource>().Stop();
         Time.timeScale = 0; //stops time
         gameOverScreen.SetActive(true); //showing the game over screen
 
