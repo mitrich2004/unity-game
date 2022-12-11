@@ -12,7 +12,14 @@ public class MoveLeft : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 12f; //setting the speed
+        if (gameObject.tag == "flyingObstacle")
+        {
+            speed = 14f;
+        }
+        else
+        {
+            speed = 12f; //setting the speed
+        }
     }
 
     // Update is called once per frame

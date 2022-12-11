@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //checks if player touched an obstacle
-        if (other.CompareTag("obstacle"))
+        if (other.CompareTag("obstacle") || other.CompareTag("flyingObstacle"))
         {
             for(int i=0; i<health.hearts.Length; i++)
             {

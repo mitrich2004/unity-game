@@ -12,6 +12,7 @@ MonoImporter:
   - longObstacle: {fileID: 7522700353642202898, guid: 4ee5dff193949d74298e2223f0664a16, type: 3}
   - highObstacle: {fileID: 3716991562523108860, guid: 8ecbb884872d8444bb533ff5cc1668a8, type: 3}
   - artifact: {fileID: 8754912892691822213, guid: ef7e382367eacde418cdf411a03c584b, type: 3}
+  - powerUp: {fileID: 4928311711184220331, guid: ce1dc679b510dea44b39f491d86f7b48, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
