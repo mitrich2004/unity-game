@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7519773580770803725}
   - component: {fileID: 8030453770144392011}
   - component: {fileID: 3755518269499406793}
+  - component: {fileID: 8952251122356054176}
   m_Layer: 0
   m_Name: FlyingObstacle
   m_TagString: flyingObstacle
@@ -126,3 +127,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.81457233, y: 0.39109915}
   m_EdgeRadius: 0
+--- !u!95 &8952251122356054176
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7519773580770803724}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1ea88a7f16a8bf4098e23c5248a8cf9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

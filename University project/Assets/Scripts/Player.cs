@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     //sprites
     public Sprite empty;
 
+    //animation
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +46,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             jumpKeyWasPressed = true; //the space key has been pressed
+   
         }
+        if (IsGrounded())
+            animator.SetBool("jump", false); //returns running animation
+        else
+            animator.SetBool("jump", true);//jumping animation is trigerred 
     }
 
     //Called every fixed amount of time
@@ -53,20 +61,23 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector3(0, 20, 0); //make the player jump
             jumpKeyWasPressed = false;  //disable the multijuming
+
         }
     }
-
     //Checks if player touches the ground or a platform
     private bool IsGrounded()
     {
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center,
             boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
-        return raycastHit2d.collider != null; 
+      
+        return raycastHit2d.collider != null;
+        
     }
 
     //Called every time a player touches something
     void OnTriggerEnter2D(Collider2D other)
     {
+        
         //checks if player touched an obstacle
         if (other.CompareTag("obstacle") || other.CompareTag("flyingObstacle"))
         {

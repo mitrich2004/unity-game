@@ -18,6 +18,7 @@ public class Generator : MonoBehaviour
     public GameObject highObstacle;
     public GameObject artifact;
     public GameObject powerUp;
+    public Animator animator;
 
     //randomizers
     int chooseObject;
@@ -119,6 +120,7 @@ public class Generator : MonoBehaviour
         if (chooseObject == 4) 
         {
             GameObject newObstacle = Instantiate(flyingObstacle); //generate flying obstacle
+            animator.SetBool("bat", true);
         }
 
         if (chooseObject == 5)
