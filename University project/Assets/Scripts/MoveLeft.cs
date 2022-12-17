@@ -14,7 +14,7 @@ public class MoveLeft : MonoBehaviour
     {
         if (gameObject.tag == "flyingObstacle")
         {
-            speed = 13f;
+            speed = 14f;
         }
         else
         {
