@@ -46,24 +46,25 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             jumpKeyWasPressed = true; //the space key has been pressed
-   
         }
-        if (IsGrounded())
-            animator.SetBool("jump", false); //returns running animation
-        else
-            animator.SetBool("jump", true);//jumping animation is trigerred 
     }
 
     //Called every fixed amount of time
     private void FixedUpdate()
     {
+        if (IsGrounded())
+        {
+            animator.SetBool("jump", false);//running animation is trigerred
+        }
+
         if (IsGrounded() && jumpKeyWasPressed)
         {
+            animator.SetBool("jump", true);//jumping animation is trigerred
             rb.velocity = new Vector3(0, 20, 0); //make the player jump
             jumpKeyWasPressed = false;  //disable the multijuming
-
         }
     }
+
     //Checks if player touches the ground or a platform
     private bool IsGrounded()
     {
@@ -71,7 +72,6 @@ public class Player : MonoBehaviour
             boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformsAndGroundLayerMask);
       
         return raycastHit2d.collider != null;
-        
     }
 
     //Called every time a player touches something

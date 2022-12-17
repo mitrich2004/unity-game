@@ -120,7 +120,10 @@ public class Generator : MonoBehaviour
         if (chooseObject == 4) 
         {
             GameObject newObstacle = Instantiate(flyingObstacle); //generate flying obstacle
-            animator.SetBool("bat", true);
+            if (animator != null && animator.isActiveAndEnabled)
+            {
+                animator.Play("bat");
+            }
         }
 
         if (chooseObject == 5)
