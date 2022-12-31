@@ -26,10 +26,8 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     //blinking sprite
-    [SerializeField]
-    private GameObject Blink;
+    public GameObject Blink;
     
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,9 +37,6 @@ public class Player : MonoBehaviour
         //intializing gameObject's components
         rb = GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
-
-        //setting off the blinking animation
-        Blink.SetActive(false);
 
         //initializing references
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
@@ -90,8 +85,6 @@ public class Player : MonoBehaviour
         //checks if player touched an obstacle
         if (other.CompareTag("obstacle") || other.CompareTag("flyingObstacle"))
         {
- Invoke("EnableBlink", 0f); //turns the blink on
-        Invoke("DisableBlink", 0.1f);//turns the blink off
             for(int i=0; i<health.hearts.Length; i++)
             {
                 if (health.isLife[i] == true)
@@ -115,7 +108,13 @@ public class Player : MonoBehaviour
         //checks if player lost the last heart
         if (heartIndex == 2)
         {
+            Blink.SetActive(false);
             gameOverScreen.showGameOverScreen(-1); //shows game over screen
+        }
+        else
+        {
+            Invoke("EnableBlink", 0f); //turns the blink on
+            Invoke("DisableBlink", 0.1f); //turns the blink off
         }
     }
 

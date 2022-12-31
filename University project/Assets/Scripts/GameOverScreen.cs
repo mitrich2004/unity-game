@@ -9,6 +9,9 @@ public class GameOverScreen: MonoBehaviour
     //UI references
     public Text artifactsText;
     public Text gameOverText;
+    public Image wizardImage;
+    public Image speachBubbleImage;
+    public Text wizardText;
 
     //other game objects
     public GameObject gameOverScreen;
@@ -17,6 +20,11 @@ public class GameOverScreen: MonoBehaviour
 
     //game over flag
     public bool gameOver;
+
+    //wizards sprites
+    public Sprite purpleWizard;
+    public Sprite blueWizard;
+    public Sprite brownWizard;
 
     //creates the house
     public void SetUp()
@@ -44,12 +52,34 @@ public class GameOverScreen: MonoBehaviour
             //no lives left
             gameOverText.text = "GAME OVER!";
             artifactsText.text = "YOU DIED AT WORK!";
+            wizardImage.enabled = false;
+            speachBubbleImage.enabled = false;
+            wizardText.enabled = false;
         }
         else
         {
             //inventory full
             gameOverText.text = "ORDER DELIVERED!";
             artifactsText.text = artifactsCollected.ToString() + " ARTIFACT(S) COLLECTED!";
+            int wizardColour = Random.Range(0, 3);
+            switch (wizardColour)
+            {
+                case 0: wizardImage.sprite = purpleWizard; break;
+                case 1: wizardImage.sprite = blueWizard; break;
+                case 2: wizardImage.sprite = brownWizard; break;
+            }
+
+            switch(artifactsCollected)
+            {
+                case 0: wizardText.text = "What are these?! I have never ordered any of it!"; break;
+                case 1: wizardText.text = "Well, that's better than nothing right? Thanks."; break;
+                case 2: wizardText.text = "Thank you! This is almost everything I have needed!"; break;
+                case 3: wizardText.text = "Thank you very much! This is exactly what I needed!"; break;
+            }
+
+            wizardImage.enabled = true;
+            speachBubbleImage.enabled = true;
+            wizardText.enabled = true;
         }
     }
 
