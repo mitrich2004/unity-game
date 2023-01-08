@@ -143,7 +143,7 @@ public class Generator : MonoBehaviour
     //generates an artifact
     void GenerateArtifactOrPowerUp(float x, float y)
     {
-        int artifactOrPowerUp = Random.Range(0, 9);
+        int artifactOrPowerUp = Random.Range(0, 5);
         if (artifactOrPowerUp == 0)
         {
             GameObject newPowerUp = Instantiate(powerUp); //generate powerUp

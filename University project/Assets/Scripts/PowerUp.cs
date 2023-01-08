@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class PowerUp : MonoBehaviour
     private Inventory inventory;
     private GameOverScreen gameOverScreen;
     private Order order;
+    public GameObject artifact;
 
     //power up randomizer
     int randomPowerUp;
@@ -19,6 +21,7 @@ public class PowerUp : MonoBehaviour
     public Sprite heart;
     public Sprite shield;
     public Sprite bin;
+    public Sprite mystery;
     public Sprite transparent;
     private SpriteRenderer powerUpSpriteRender;
 
@@ -29,12 +32,13 @@ public class PowerUp : MonoBehaviour
         powerUpSpriteRender = gameObject.GetComponent<SpriteRenderer>();
 
         //choosing random powerUp sprite
-        randomPowerUp = Random.Range(0, 3);
+        randomPowerUp = Random.Range(0, 4);
         switch (randomPowerUp)
         {
             case 0: powerUpSpriteRender.sprite = heart; break;
             case 1: powerUpSpriteRender.sprite = shield; break;
             case 2: powerUpSpriteRender.sprite = bin; break;
+            case 3: powerUpSpriteRender.sprite = mystery; break;
             default:break;
         }
 
@@ -77,6 +81,12 @@ public class PowerUp : MonoBehaviour
             else if (powerUpSpriteRender.sprite == bin)
             {
                 applyBinPowerUp();
+                Destroy(gameObject);
+            }
+            else if (powerUpSpriteRender.sprite == mystery)
+            {
+                GameObject newArtifact = Instantiate(artifact); //create artifact
+                newArtifact.gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y); //set artifact's position
                 Destroy(gameObject);
             }
         }
